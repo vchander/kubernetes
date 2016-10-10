@@ -18,17 +18,19 @@
 FROM golang:1.6.3
 
 ENV GOARM 6
-ENV KUBE_DYNAMIC_CROSSPLATFORMS \
-  armel \
-  arm64 \
-  ppc64el
+ENV KUBE_DYNAMIC_CROSSPLATFORMS
 
-ENV KUBE_CROSSPLATFORMS \
-  linux/386 \
-  linux/arm linux/arm64 \
-  linux/ppc64le \
-  darwin/amd64 darwin/386 \
-  windows/amd64 windows/386
+#  armel \
+#  arm64 \
+#  ppc64el
+
+ENV KUBE_CROSSPLATFORMS 
+
+#  linux/386 \
+#  linux/arm linux/arm64 \
+#  linux/ppc64le \
+#  darwin/amd64 darwin/386 \
+#  windows/amd64 windows/386
 
 # Pre-compile the standard go library when cross-compiling. This is much easier now when we have go1.5+
 RUN for platform in ${KUBE_CROSSPLATFORMS}; do GOOS=${platform%/*} GOARCH=${platform##*/} go install std; done
